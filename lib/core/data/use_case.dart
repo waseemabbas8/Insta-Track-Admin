@@ -1,7 +1,11 @@
 import 'package:intatrack/core/data/response.dart';
 
 abstract class UseCase<T extends Object, Params extends Object> {
-  Future<Result<T>> invoke(Params params);
+  Future<Result<T>> call({required Params params});
+}
+
+abstract class ObservableUseCase<T extends Object, Params extends Object> {
+  Stream<T> call({required Params params});
 }
 
 class NoParams {

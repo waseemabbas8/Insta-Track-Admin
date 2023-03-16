@@ -1,25 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
+
+import '../../../../core/data/firebase/db/firestore_service.dart';
 import '../../domain/model/User.dart';
+import '../../domain/model/auth_state.dart';
 import '../../domain/repository/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
+  final firebase.FirebaseAuth firebaseAuth;
+  final FireStoreService fireStoreService;
+
+  UserRepositoryImpl({required this.firebaseAuth, required this.fireStoreService});
 
   @override
-  Future<User?> get user async {
-    // TODO: get user from firebase
-    await Future.delayed(const Duration(seconds: 3));
-    return User(
-        id: "xas12",
-        name: "Waseem"
-    );
-  }
+  Stream<AuthState> get authSate => firebaseAuth
+      .authStateChanges()
+      .map((user) => user != null ? AuthState.signedIn : AuthState.signedOut);
 
   @override
   Future<User?> login({required String email, required String password}) async {
-    ///TODO: call to firebase
-    await Future.delayed(const Duration(seconds: 4));
+    final credential =
+        await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    if(credential.user == null) return null;
     return User(
-      id: "xas12",
-      name: "Waseem"
+      id: credential.user!.uid,
+      name: credential.user!.displayName.toString(),
+      email: credential.user!.email!,
     );
   }
 }

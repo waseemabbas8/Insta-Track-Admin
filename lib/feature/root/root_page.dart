@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../core/base_page.dart';
 import 'root_controller.dart';
@@ -9,7 +10,11 @@ class RootPage extends BasePage<RootController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Center(
+        child: Obx(
+          () => controller.loadingData ? const CircularProgressIndicator() : Container(),
+        ),
+      ),
     );
   }
 }

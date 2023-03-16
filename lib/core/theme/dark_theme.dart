@@ -8,10 +8,21 @@ final ThemeData _base = ThemeData.dark();
 
 ThemeData get darkTheme {
   return _base.copyWith(
+    backgroundColor: AppColors.scaffoldBackground,
     scaffoldBackgroundColor: AppColors.scaffoldBackground,
     textTheme: _textTheme,
     cardTheme: _cardTheme,
     canvasColor: AppColors.secondary,
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: AppColors.primary,
+    )
+    // colorScheme: ColorScheme(
+    //   background: AppColors.scaffoldBackground,
+    //   brightness: Brightness.dark,
+    //   primary: AppColors.primary,
+    //   onPrimary: AppColors.primary,
+    //
+    // ),
   );
 }
 
