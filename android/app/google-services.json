@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "226237725544",
+    "project_id": "instatrack-e989c",
+    "storage_bucket": "instatrack-e989c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226237725544:android:aacbdd78a2760b03e2f4dd",
+        "android_client_info": {
+          "package_name": "com.instatrack.intatrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226237725544-l4iuiq3n82qkmt3rgdeqpr0gn9vldub4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6x8l4tcLh5exUMSHEE3qP9a4T9RaAikE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226237725544-l4iuiq3n82qkmt3rgdeqpr0gn9vldub4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
