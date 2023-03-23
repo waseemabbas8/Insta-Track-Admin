@@ -1,3 +1,4 @@
+import '../../../../core/data/exception.dart';
 import '../../../../core/data/response.dart';
 import '../../../../core/data/use_case.dart';
 import '../model/User.dart';
@@ -19,8 +20,11 @@ class LoginUseCaseImpl implements LoginUseCase {
 
   @override
   Future<Result<User>> call({required LoginParams params}) async {
-    final user = await repo.login(email: "email", password: "password");
-    if(user != null) return Result.success(user);
-    return Result.error(Exception("Invalid User or email"));
+    try{
+      final user = await repo.login(email: params.email, password: params.password);
+      return Result.success(user!);
+    } catch(e) {
+      return Result.error(FirebaseException.authException(msg: "Invalid email or password"));
+    }
   }
 }

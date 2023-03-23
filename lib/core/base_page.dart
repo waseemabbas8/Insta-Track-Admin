@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
-abstract class BaseController extends GetxController {
+import 'route/navigation_service.dart';
+
+abstract class BaseController extends GetxController with NavigationService {
   final RxBool _loadingData = false.obs;
 
   bool get loadingData => _loadingData.value;
@@ -13,19 +15,8 @@ abstract class BaseController extends GetxController {
     Get.showSnackbar(GetSnackBar(
       title: title,
       message: message,
+      duration: const Duration(seconds: 3),
     ));
-  }
-
-  void replaceRoute(String route, {dynamic arguments}) {
-    Get.offNamed(route, arguments: arguments);
-  }
-
-  void pushRoute(String route, {dynamic arguments}) {
-    Get.toNamed(route, arguments: arguments);
-  }
-
-  void onBack() {
-    Get.back();
   }
 
 }

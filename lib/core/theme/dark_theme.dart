@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../values/colors.dart';
 import '../values/dimens.dart';
+import '../values/styles.dart';
 
 final ThemeData _base = ThemeData.dark();
 
@@ -12,26 +13,36 @@ ThemeData get darkTheme {
     scaffoldBackgroundColor: AppColors.scaffoldBackground,
     textTheme: _textTheme,
     cardTheme: _cardTheme,
-    canvasColor: AppColors.secondary,
+    canvasColor: AppColors.canvas,
+    primaryColor: AppColors.primary,
+    primaryColorDark: AppColors.primaryDark,
+    primaryColorLight: AppColors.primaryLight,
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: AppColors.primary,
-    )
-    // colorScheme: ColorScheme(
-    //   background: AppColors.scaffoldBackground,
-    //   brightness: Brightness.dark,
-    //   primary: AppColors.primary,
-    //   onPrimary: AppColors.primary,
-    //
-    // ),
+    ),
+    cardColor: AppColors.cardBackground,
+    inputDecorationTheme: _inputDecorationTheme,
+    elevatedButtonTheme: _elevatedButtonTheme
   );
 }
 
-final _textTheme = GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white);
+TextTheme get _textTheme => GoogleFonts.poppinsTextTheme().copyWith(
+  titleLarge: const TextStyle(fontWeight: FontWeight.w500)
+).apply(bodyColor: Colors.white);
 
 CardTheme get _cardTheme => CardTheme(
-      elevation: 0,
       color: AppColors.cardBackground,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadii.cardRadius,
       ),
     );
+
+InputDecorationTheme get _inputDecorationTheme => const InputDecorationTheme(
+  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+  border: OutlineInputBorder(),
+);
+
+ElevatedButtonThemeData get _elevatedButtonTheme => ElevatedButtonThemeData(
+  style: ButtonStyles.elevatedButtonStyle,
+);

@@ -1,14 +1,16 @@
+import 'exception.dart';
+
 class Result<T> {
   Result._();
 
   factory Result.success(T data) = SuccessResult;
-  factory Result.error(Exception e) = ErrorResult;
+  factory Result.error(FirebaseException e) = ErrorResult;
 }
 
 class ErrorResult<T> extends Result<T> {
   ErrorResult(this.e) : super._();
 
-  final Exception e;
+  final FirebaseException e;
 }
 
 class SuccessResult<T> extends Result<T> {
