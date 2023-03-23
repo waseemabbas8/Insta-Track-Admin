@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'InstaTrack',
       theme: darkTheme,
+      defaultTransition: Transition.noTransition,
       initialBinding: RootBindings(),
       initialRoute: AppRoutes.root,
       getPages: AppPages.pages,

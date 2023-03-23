@@ -8,12 +8,14 @@ class SelectionButtonData {
   final IconData activeIcon;
   final IconData icon;
   final String label;
+  final String routeName;
   final int? totalNotif;
 
   SelectionButtonData({
     required this.activeIcon,
     required this.icon,
     required this.label,
+    required this.routeName,
     this.totalNotif,
   });
 }
@@ -28,7 +30,7 @@ class SelectionButton extends StatefulWidget {
 
   final int initialSelected;
   final List<SelectionButtonData> data;
-  final Function(int index, SelectionButtonData value) onSelected;
+  final OnSelectionButtonClick onSelected;
 
   @override
   State<SelectionButton> createState() => _SelectionButtonState();
@@ -156,3 +158,5 @@ class _Button extends StatelessWidget {
           );
   }
 }
+
+typedef OnSelectionButtonClick = Function(int index, SelectionButtonData value);

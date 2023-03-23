@@ -5,22 +5,21 @@ import '../values/dimens.dart';
 import 'profile_tile.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key}) : super(key: key);
+  final String title;
+
+  const Header({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Dashboard', style: Get.textTheme.titleLarge),
-            Expanded(
-              flex: 3,
-              child: Container(),
-            ),
+            Text(title, style: Get.textTheme.titleLarge),
             Spacing.h20,
-            Expanded(
-              flex: 1,
+            SizedBox(
+              width: 250,
               child: ProfileTile(onPressedNotification: () {}),
             ),
           ],

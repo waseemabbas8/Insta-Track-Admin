@@ -19,14 +19,16 @@ class Margin {
 
   static const all8 = EdgeInsets.all(9.0);
   static const all10 = EdgeInsets.all(10.0);
+  static const all16 = EdgeInsets.all(16.0);
   static const all20 = EdgeInsets.all(20.0);
+  static const h16 = EdgeInsets.all(16.0);
   static const h20 = EdgeInsets.all(20.0);
   static const h20v10 = EdgeInsets.symmetric(horizontal: 20, vertical: 10);
 }
 
 ///Radii
 class BorderRadii {
+  static final all10 = BorderRadius.circular(10);
   static final button = BorderRadius.circular(5);
   static final cardRadius = BorderRadius.circular(15);
-  static final c = BorderRadius.circular(20);
 }

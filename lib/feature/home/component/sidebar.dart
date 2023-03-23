@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intatrack/core/route/app_routes.dart';
 
 import '../../../core/values/colors.dart';
 import '../../../core/values/dimens.dart';
@@ -9,10 +10,12 @@ import 'selection_button.dart';
 class Sidebar extends StatelessWidget {
   const Sidebar({
     required this.data,
+    required this.onItemSelected,
     Key? key,
   }) : super(key: key);
 
   final ProjectCardData data;
+  final OnSelectionButtonClick onItemSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -33,36 +36,40 @@ class Sidebar extends StatelessWidget {
                   activeIcon: Icons.dashboard,
                   icon: Icons.dashboard_outlined,
                   label: "Dashboard",
+                  routeName: AppRoutes.dashboard,
                 ),
                 SelectionButtonData(
                   activeIcon: Icons.supervised_user_circle,
                   icon: Icons.supervised_user_circle_outlined,
                   label: "Manage Users",
+                  routeName: AppRoutes.users,
                 ),
                 SelectionButtonData(
                   activeIcon: Icons.monetization_on,
                   icon: Icons.monetization_on_outlined,
                   label: "Loan Applications",
+                  routeName: AppRoutes.loans,
                 ),
                 SelectionButtonData(
                   activeIcon: Icons.money,
                   icon: Icons.money_outlined,
                   label: "Installments",
+                  routeName: AppRoutes.installments,
                 ),
                 SelectionButtonData(
                   activeIcon: Icons.production_quantity_limits,
                   icon: Icons.production_quantity_limits_outlined,
                   label: "Products",
+                  routeName: AppRoutes.products,
                 ),
                 SelectionButtonData(
                   activeIcon: Icons.settings,
                   icon: Icons.settings_outlined,
                   label: "Setting",
+                  routeName: AppRoutes.settings,
                 ),
               ],
-              onSelected: (index, value) {
-                print("index : $index | label : ${value.label}");
-              },
+              onSelected: onItemSelected,
             ),
             const Divider(thickness: 1),
             Spacing.v40,

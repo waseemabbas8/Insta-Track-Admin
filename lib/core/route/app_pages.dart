@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 
 import '../../feature/auth/presentation/login/login_bindings.dart';
 import '../../feature/auth/presentation/login/login_page.dart';
-import '../../feature/dashboard/presentation/dashboard_bindings.dart';
-import '../../feature/dashboard/presentation/dashboard_page.dart';
 import '../../feature/home/home_bindings.dart';
 import '../../feature/home/home_page.dart';
 import '../../feature/root/root_bindings.dart';

@@ -5,4 +5,9 @@ class AppRoutes {
   static const login = "/login";
   static const home = "/home";
   static const dashboard = "/dashboard";
+  static const users = "/users";
+  static const loans = "/loans";
+  static const installments = "/installments";
+  static const products = "/products";
+  static const settings = "/settings";
 }
