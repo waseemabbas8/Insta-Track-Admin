@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intatrack/feature/user/presentation/users_bindings.dart';
 
-import '../../feature/dashboard/presentation/dashboard_bindings.dart';
 import '../../feature/dashboard/presentation/dashboard_page.dart';
-import '../../feature/user/presentation/users_bindings.dart';
 import '../../feature/user/presentation/users_page.dart';
 import 'app_routes.dart';
 
@@ -12,26 +11,22 @@ class HomeNavigation {
 
   static int id = 2;
 
-  static GetPageRoute getPage(RouteSettings route) {
-    switch(route.name) {
-      case '/':
-        return _defaultRoute();
-      case AppRoutes.dashboard:
-        return _defaultRoute();
-      case AppRoutes.users:
-        UsersBindings();
-        return GetPageRoute(
-            page: () => const UsersPage()
-        );
-      default:
-        throw Exception('Invalid route');
-    }
-  }
+  static const DashboardPage _dashboard = DashboardPage();
+  static const UsersPage _users = UsersPage();
 
-  static GetPageRoute _defaultRoute() {
-    DashboardBindings();
-    return GetPageRoute(
-        page: () => const DashboardPage()
-    );
+  static GetPageRoute getPage(RouteSettings route) {
+    switch (route.name) {
+      case '/':
+        return GetPageRoute(page: () => _dashboard);
+      case AppRoutes.dashboard:
+        return GetPageRoute(page: () => _dashboard);
+      case AppRoutes.users:
+        return GetPageRoute(page: () {
+          UsersBindings().dependencies();
+          return _users;
+        });
+      default:
+        throw Exception('Invalid route name');
+    }
   }
 }

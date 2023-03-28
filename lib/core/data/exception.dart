@@ -4,6 +4,7 @@ class FirebaseException implements Exception {
   FirebaseException._({required this.message});
 
   factory FirebaseException.authException({required String msg}) = FirebaseAuthException;
+  factory FirebaseException.noDataException({required String msg}) = FirebaseDataNotFoundException;
 
   @override
   String toString() {
@@ -13,4 +14,8 @@ class FirebaseException implements Exception {
 
 class FirebaseAuthException extends FirebaseException {
   FirebaseAuthException({required String msg}) : super._(message: msg);
+}
+
+class FirebaseDataNotFoundException extends FirebaseException {
+  FirebaseDataNotFoundException({required String msg}) : super._(message: msg);
 }

@@ -25,10 +25,10 @@ class HomeController extends BaseController {
     if(value.routeName == Get.currentRoute) return;
     switch(value.routeName) {
       case AppRoutes.dashboard:
-        Get.offNamed(AppRoutes.dashboard, id: HomeNavigation.id);
+        Get.toNamed(AppRoutes.dashboard, id: HomeNavigation.id);
         break;
       case AppRoutes.users:
-        Get.offNamed(AppRoutes.users, id: HomeNavigation.id);
+        Get.toNamed(AppRoutes.users, id: HomeNavigation.id);
         break;
     }
   }
