@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intatrack/core/widget/label.dart';
 
 import '../../../core/utils/data_utils.dart';
 import '../../../core/values/colors.dart';
@@ -43,7 +44,7 @@ class ProjectCard extends StatelessWidget {
               Row(
                 children: [
                   const _SubtitleText("Current time : "),
-                  _ReleaseTimeText(data.releaseTime)
+                  LabelText(DataUtils.getCurrentDate()),
                 ],
               )
             ],
@@ -110,29 +111,6 @@ class _SubtitleText extends StatelessWidget {
       style: TextStyle(fontSize: 11, color: AppColors.fontColorPallets[2]),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-    );
-  }
-}
-
-class _ReleaseTimeText extends StatelessWidget {
-  const _ReleaseTimeText(this.date, {Key? key}) : super(key: key);
-
-  final DateTime date;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.ntfColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
-      child: Text(
-        DataUtils.getCurrentDate(),
-        style: const TextStyle(fontSize: 9, color: Colors.white),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
     );
   }
 }

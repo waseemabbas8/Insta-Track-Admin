@@ -27,7 +27,9 @@ ThemeData get darkTheme {
 }
 
 TextTheme get _textTheme => GoogleFonts.poppinsTextTheme().copyWith(
-  titleLarge: const TextStyle(fontWeight: FontWeight.w500)
+  titleLarge: const TextStyle(fontWeight: FontWeight.w500),
+  titleSmall: const TextStyle(fontWeight: FontWeight.w500),
+  bodySmall: const TextStyle(fontWeight: FontWeight.normal),
 ).apply(bodyColor: Colors.white);
 
 CardTheme get _cardTheme => CardTheme(

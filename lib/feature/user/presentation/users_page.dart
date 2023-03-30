@@ -17,13 +17,15 @@ class UsersPage extends BasePage<UsersController> {
       body: Column(
         children: [
           const Header(title: 'Manage Users'),
-          Spacing.v20,
-          Align(
-            alignment: Alignment.topRight,
-            child: SizedBox(
-              width: 400,
-              child: SearchField(onSearch: controller.onSearch),
-            ),
+          Spacing.v10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: 350,
+                child: SearchField(onSearch: controller.onSearch),
+              ),
+            ],
           ),
           Obx(
             () => controller.loadingData

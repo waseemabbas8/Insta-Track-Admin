@@ -6,8 +6,10 @@ import 'profile_tile.dart';
 
 class Header extends StatelessWidget {
   final String title;
+  final bool hasBackNav;
+  final VoidCallback? onBackPressed;
 
-  const Header({Key? key, required this.title}) : super(key: key);
+  const Header({Key? key, this.onBackPressed, this.hasBackNav = false, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,18 @@ class Header extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: Get.textTheme.titleLarge),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                hasBackNav
+                    ? IconButton(
+                        onPressed: onBackPressed,
+                        icon: const Icon(Icons.arrow_back, color: Colors.white))
+                    : Container(),
+                hasBackNav ? Spacing.h10 : Container(),
+                Text(title, style: Get.textTheme.titleLarge),
+              ],
+            ),
             Spacing.h20,
             SizedBox(
               width: 250,
