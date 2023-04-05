@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intatrack/feature/application/presentation/applications_bindings.dart';
+import 'package:intatrack/feature/application/presentation/applications_page.dart';
 import 'package:intatrack/feature/user/presentation/users_bindings.dart';
 
 import '../../feature/dashboard/presentation/dashboard_page.dart';
@@ -16,6 +18,7 @@ class HomeNavigation {
   static const DashboardPage _dashboard = DashboardPage();
   static const UsersPage _users = UsersPage();
   static const UserDetailPage _userDetail = UserDetailPage();
+  static const ApplicationsPage _applicationsPage = ApplicationsPage();
 
   static GetPageRoute getPage(RouteSettings route) {
     Get.routing.args = route.arguments;
@@ -33,6 +36,12 @@ class HomeNavigation {
         return GetPageRoute(page: () {
           UserDetailBindings().dependencies();
           return _userDetail;
+        });
+
+      case AppRoutes.loans:
+        return GetPageRoute(page: () {
+          ApplicationsBindings().dependencies();
+          return _applicationsPage;
         });
       default:
         throw Exception('Invalid route name');

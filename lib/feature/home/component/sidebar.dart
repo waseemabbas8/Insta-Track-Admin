@@ -47,7 +47,7 @@ class Sidebar extends StatelessWidget {
                 SelectionButtonData(
                   activeIcon: Icons.monetization_on,
                   icon: Icons.monetization_on_outlined,
-                  label: "Loan Applications",
+                  label: "Applications",
                   routeName: AppRoutes.loans,
                 ),
                 SelectionButtonData(

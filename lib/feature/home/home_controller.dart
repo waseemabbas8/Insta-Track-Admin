@@ -9,7 +9,6 @@ import 'component/project_card.dart';
 import 'component/selection_button.dart';
 
 class HomeController extends BaseController {
-
   HomeController();
 
   ProjectCardData getSelectedProject() {
@@ -22,13 +21,16 @@ class HomeController extends BaseController {
   }
 
   void onMenuItemSelected(int index, SelectionButtonData value) {
-    if(value.routeName == Get.currentRoute) return;
-    switch(value.routeName) {
+    if (value.routeName == Get.currentRoute) return;
+    switch (value.routeName) {
       case AppRoutes.dashboard:
         Get.toNamed(AppRoutes.dashboard, id: HomeNavigation.id);
         break;
       case AppRoutes.users:
         Get.toNamed(AppRoutes.users, id: HomeNavigation.id);
+        break;
+      case AppRoutes.loans:
+        Get.toNamed(AppRoutes.loans, id: HomeNavigation.id);
         break;
     }
   }
