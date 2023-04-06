@@ -1,21 +1,20 @@
-import '../../../auth/domain/model/User.dart';
-
-class UserApplication extends User {
+class InstallmentApplication {
+  final String name;
   final String phone;
   final String product;
-  final String advanceAmount;
+  final int price;
+  final String advance;
   final String createdAt;
   final bool? status;
-  final int installments;
+  final int installmentsCount;
 
-  UserApplication({
-    required super.id,
-    required super.name,
-    required super.email,
+  InstallmentApplication({
+    required this.name,
     required this.phone,
     required this.product,
-    required this.advanceAmount,
-    required this.installments,
+    required this.price,
+    required this.advance,
+    required this.installmentsCount,
     required this.createdAt,
     this.status,
   });
@@ -23,7 +22,6 @@ class UserApplication extends User {
   bool matchesSearchResult(String value) {
     final searchWord = value.toLowerCase();
     return name.toLowerCase().contains(searchWord) ||
-        email.toLowerCase().contains(searchWord) ||
         phone.toLowerCase().contains(searchWord) ||
         createdAt.toLowerCase().contains(searchWord);
   }

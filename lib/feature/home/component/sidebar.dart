@@ -45,17 +45,17 @@ class Sidebar extends StatelessWidget {
                   routeName: AppRoutes.users,
                 ),
                 SelectionButtonData(
-                  activeIcon: Icons.monetization_on,
-                  icon: Icons.monetization_on_outlined,
-                  label: "Applications",
-                  routeName: AppRoutes.loans,
-                ),
-                SelectionButtonData(
                   activeIcon: Icons.money,
                   icon: Icons.money_outlined,
                   label: "Installments",
-                  routeName: AppRoutes.installments,
+                  routeName: AppRoutes.loans,
                 ),
+                // SelectionButtonData(
+                //   activeIcon: Icons.money,
+                //   icon: Icons.money_outlined,
+                //   label: "Installments",
+                //   routeName: AppRoutes.installments,
+                // ),
                 SelectionButtonData(
                   activeIcon: Icons.production_quantity_limits,
                   icon: Icons.production_quantity_limits_outlined,

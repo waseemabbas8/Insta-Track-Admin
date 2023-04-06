@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 import '../../../core/base_page.dart';
 import '../../../core/route/app_routes.dart';
 import '../../../core/route/home_navigation.dart';
-import '../domain/model/user_application.dart';
+import '../domain/model/installment_application.dart';
 
-class ApplicationsController extends BaseController {
-  final RxList<UserApplication> _userApplications = RxList();
+class InstallmentsController extends BaseController {
+  final RxList<InstallmentApplication> _userApplications = RxList();
 
-  List<UserApplication> get userApplications => _userApplications;
+  List<InstallmentApplication> get userApplications => _userApplications;
 
-  List<UserApplication> _initUsersList = List.empty();
+  List<InstallmentApplication> _initUsersList = List.empty();
 
   @override
   void onInit() {
@@ -20,36 +20,33 @@ class ApplicationsController extends BaseController {
   void _fetchAppUsers() async {
     setLoadingState(true);
     await Future.delayed(const Duration(microseconds: 500));
-    List<UserApplication> data = [
-      UserApplication(
-          id: 'id',
+    List<InstallmentApplication> data = [
+      InstallmentApplication(
           name: 'Ali',
-          email: 'ali@gmail.com',
           phone: '03084248718',
           createdAt: '23-12-2023',
           status: true,
           product: 'iPhone',
-          installments: 5,
-          advanceAmount: '100000'),
-      UserApplication(
-          id: 'id2',
+          price: 200000,
+          installmentsCount: 5,
+          advance: '100000'),
+      InstallmentApplication(
           name: 'Rehan',
-          email: 'rehan@gmail.com',
           phone: '03084248718',
           createdAt: '25-12-2023',
           status: false,
-          installments: 8,
+          installmentsCount: 8,
           product: 'Nokia',
-          advanceAmount: '2500'),
-      UserApplication(
-          id: 'id3',
+          price: 32000,
+          advance: '2500'),
+      InstallmentApplication(
           name: 'Waseem',
-          email: 'waseem@gmail.com',
           phone: '03004356879',
           createdAt: '25-12-2023',
-          installments: 12,
+          installmentsCount: 12,
           product: 'SAMSUNG',
-          advanceAmount: '1500'),
+          price: 55000,
+          advance: '1500'),
     ];
     _userApplications.value = data;
     _initUsersList = data;

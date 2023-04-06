@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intatrack/feature/application/presentation/component/applications_table.dart';
 import '../../../core/base_page.dart';
 import '../../../core/values/dimens.dart';
 import '../../../core/widget/header.dart';
 import '../../../core/widget/search_field.dart';
-import 'applications_controller.dart';
+import 'installments_controller.dart';
+import 'component/installment_table.dart';
 
-class ApplicationsPage extends BasePage<ApplicationsController> {
-  const ApplicationsPage({super.key});
+class InstallmentsPage extends BasePage<InstallmentsController> {
+  const InstallmentsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ApplicationsPage extends BasePage<ApplicationsController> {
                 : controller.userApplications.isEmpty
                     ? Text('No Applications found', style: Get.textTheme.titleMedium)
                     : Expanded(
-                        child: ApplicationsTable(userApplications: controller.userApplications),
+                        child: InstallmentTable(userApplications: controller.userApplications),
                       ),
           ),
         ],

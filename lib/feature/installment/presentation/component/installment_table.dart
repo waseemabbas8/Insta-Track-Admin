@@ -1,13 +1,13 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/values/dimens.dart';
-import '../../domain/model/user_application.dart';
-import 'applications_table_data_source.dart';
+import '../../domain/model/installment_application.dart';
+import 'installment_table_data_source.dart';
 
-class ApplicationsTable extends StatelessWidget {
-  final List<UserApplication> userApplications;
+class InstallmentTable extends StatelessWidget {
+  final List<InstallmentApplication> userApplications;
 
-  const ApplicationsTable({
+  const InstallmentTable({
     Key? key,
     required this.userApplications,
   }) : super(key: key);
@@ -23,7 +23,7 @@ class ApplicationsTable extends StatelessWidget {
             columnSpacing: 16,
             minWidth: 600,
             source:
-                ApplicationsTableSource(usersApplications: userApplications),
+                InstallmentTableSource(installmentsApplications: userApplications),
             columns: const [
               DataColumn(
                 label: Text("Name"),
@@ -35,10 +35,13 @@ class ApplicationsTable extends StatelessWidget {
                 label: Text("Product"),
               ),
               DataColumn(
-                label: Text("Advance Amount"),
+                label: Text("Price"),
               ),
               DataColumn(
-                label: Text("Installments"),
+                label: Text("Advance"),
+              ),
+              DataColumn(
+                label: Text("ICount"),
               ),
               DataColumn(
                 label: Text("Created"),
