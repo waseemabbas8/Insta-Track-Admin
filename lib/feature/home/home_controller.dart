@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../core/base_page.dart';
 import '../../core/route/app_routes.dart';
 import '../../core/route/home_navigation.dart';
@@ -33,5 +32,8 @@ class HomeController extends BaseController {
         Get.toNamed(AppRoutes.loans, id: HomeNavigation.id);
         break;
     }
+
+    if (value.routeName == Get.currentRoute) return;
+    Get.toNamed(value.routeName, id: HomeNavigation.id);
   }
 }

@@ -4,6 +4,8 @@ import 'package:intatrack/feature/installment/presentation/installments_bindings
 import 'package:intatrack/feature/installment/presentation/installments_page.dart';
 import 'package:intatrack/feature/user/presentation/users_bindings.dart';
 import '../../feature/dashboard/presentation/dashboard_page.dart';
+import '../../feature/product/presentation/products_bindings.dart';
+import '../../feature/product/presentation/products_page.dart';
 import '../../feature/user/presentation/users_page.dart';
 import '../../feature/userdetail/presentation/user_detail_bindings.dart';
 import '../../feature/userdetail/presentation/user_detail_page.dart';
@@ -18,6 +20,7 @@ class HomeNavigation {
   static const UsersPage _users = UsersPage();
   static const UserDetailPage _userDetail = UserDetailPage();
   static const InstallmentsPage _installmentsPage = InstallmentsPage();
+  static const ProductsPage _products = ProductsPage();
 
   static GetPageRoute getPage(RouteSettings route) {
     Get.routing.args = route.arguments;
@@ -36,11 +39,15 @@ class HomeNavigation {
           UserDetailBindings().dependencies();
           return _userDetail;
         });
-
       case AppRoutes.loans:
         return GetPageRoute(page: () {
-         InstallmentsBindings().dependencies();
+          InstallmentsBindings().dependencies();
           return _installmentsPage;
+        });
+      case AppRoutes.products:
+        return GetPageRoute(page: () {
+          ProductsBindings().dependencies();
+          return _products;
         });
       default:
         throw Exception('Invalid route name');

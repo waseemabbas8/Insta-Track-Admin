@@ -15,10 +15,10 @@ class GetUsersUseCaseImpl implements GetUsersUseCase {
   Future<Result<List<AppUser>>> call({required NoParams params}) async {
     try {
       final result = await repo.getUsers();
-      if(result is SuccessResult) {
-        return Result.success(result);
+      if(result.isEmpty) {
+        return Result.error(FirebaseException.noDataException(msg: "No users found"));
       }
-      return Result.error(FirebaseException.noDataException(msg: "Could not load data"));
+      return Result.success(result);
     } catch (e) {
       return Result.error(FirebaseException.noDataException(msg: "Could not load data"));
     }
