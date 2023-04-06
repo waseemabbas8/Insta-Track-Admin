@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../core/base_page.dart';
+import '../../core/route/app_routes.dart';
 import '../../core/route/home_navigation.dart';
 import '../../core/utils/constants.dart';
 import 'component/project_card.dart';
 import 'component/selection_button.dart';
 
 class HomeController extends BaseController {
-
   HomeController();
 
   ProjectCardData getSelectedProject() {
@@ -21,7 +20,7 @@ class HomeController extends BaseController {
   }
 
   void onMenuItemSelected(int index, SelectionButtonData value) {
-    if(value.routeName == Get.currentRoute) return;
+    if (value.routeName == Get.currentRoute) return;
     Get.toNamed(value.routeName, id: HomeNavigation.id);
   }
 }

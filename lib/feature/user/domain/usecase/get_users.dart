@@ -23,6 +23,4 @@ class GetUsersUseCaseImpl implements GetUsersUseCase {
       return Result.error(FirebaseException.noDataException(msg: "Could not load data"));
     }
   }
-
-
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intatrack/feature/installment/presentation/installments_bindings.dart';
+import 'package:intatrack/feature/installment/presentation/installments_page.dart';
 import 'package:intatrack/feature/user/presentation/users_bindings.dart';
-
 import '../../feature/dashboard/presentation/dashboard_page.dart';
 import '../../feature/product/presentation/products_bindings.dart';
 import '../../feature/product/presentation/products_page.dart';
@@ -18,6 +19,7 @@ class HomeNavigation {
   static const DashboardPage _dashboard = DashboardPage();
   static const UsersPage _users = UsersPage();
   static const UserDetailPage _userDetail = UserDetailPage();
+  static const InstallmentsPage _installmentsPage = InstallmentsPage();
   static const ProductsPage _products = ProductsPage();
 
   static GetPageRoute getPage(RouteSettings route) {
@@ -36,6 +38,11 @@ class HomeNavigation {
         return GetPageRoute(page: () {
           UserDetailBindings().dependencies();
           return _userDetail;
+        });
+      case AppRoutes.loans:
+        return GetPageRoute(page: () {
+          InstallmentsBindings().dependencies();
+          return _installmentsPage;
         });
       case AppRoutes.products:
         return GetPageRoute(page: () {
