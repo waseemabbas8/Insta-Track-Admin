@@ -10,7 +10,11 @@ class FireStoreServiceImpl implements FireStoreService {
   FireStoreServiceImpl({required this.fireStore});
 
   @override
-  Future add(FireStoreDoc obj, CollectionReference colRef) => colRef.add(obj);
+  Future<T> add<T extends FireStoreDoc> (T obj, CollectionReference colRef) async {
+    final result = await colRef.add(obj);
+    obj.docId = result.id;
+    return obj;
+  }
 
   @override
   Future update(FireStoreDoc obj, DocumentReference docRef) => docRef.update(obj.toMap());
@@ -35,6 +39,11 @@ class FireStoreServiceImpl implements FireStoreService {
   Future<List<T>> getList<T extends FireStoreDoc>(CollectionReference<T> colRef) async {
     final data = await colRef.get().then((value) => value.docs);
     return data.map((e) => e.toPojo()).toList();
+  }
+
+  @override
+  Stream<List<T>> observeList<T extends FireStoreDoc>(CollectionReference<T> colRef) {
+    return colRef.snapshots().map((event) => event.docs.map((e) => e.toPojo()).toList());
   }
 
   @override
@@ -81,7 +90,7 @@ class FireStoreServiceImpl implements FireStoreService {
 extension _DocumentParser<T extends FireStoreDoc> on DocumentSnapshot<T> {
   T? toPojo() {
     final document = data();
-    document?.updatedAt = get(FireStoreFields.updatedAt);
+    //document?.updatedAt = get(FireStoreFields.updatedAt);
     document?.docId = id;
     return document;
   }
@@ -90,7 +99,7 @@ extension _DocumentParser<T extends FireStoreDoc> on DocumentSnapshot<T> {
 extension _QueryDocumentParser<T extends FireStoreDoc> on QueryDocumentSnapshot<T> {
   T toPojo() {
     final document = data();
-    document.updatedAt = get(FireStoreFields.updatedAt);
+    //document.updatedAt = get(FireStoreFields.updatedAt);
     document.docId = id;
     return document;
   }

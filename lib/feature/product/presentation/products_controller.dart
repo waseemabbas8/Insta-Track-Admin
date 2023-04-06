@@ -72,9 +72,9 @@ class ProductsController extends BaseController {
     final result = await createProduct(params: params);
     if(result is ErrorResult) {
       Get.snackbar('Error', (result as ErrorResult).e.message);
+      setLoadingState(false);
     } else {
       Get.back();
     }
-    setLoadingState(false);
   }
 }

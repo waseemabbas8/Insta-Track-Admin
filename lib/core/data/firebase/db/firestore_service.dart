@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firestore_doc.dart';
 
 abstract class FireStoreService {
-  Future add(FireStoreDoc obj, CollectionReference colRef);
+  Future<T> add<T extends FireStoreDoc>(T obj, CollectionReference colRef);
 
   Future update(FireStoreDoc obj, DocumentReference docRef);
 
@@ -13,6 +13,8 @@ abstract class FireStoreService {
   Future<T?> get<T extends FireStoreDoc>(DocumentReference<T> docRef);
 
   Future<List<T>> getList<T extends FireStoreDoc>(CollectionReference<T> colRef);
+
+  Stream<List<T>> observeList<T extends FireStoreDoc>(CollectionReference<T> colRef);
 
   CollectionReference<T> getCollectionRef<T extends FireStoreDoc>(
     String path,

@@ -9,7 +9,7 @@ import 'products_controller.dart';
 class ProductsBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ProductRepository>(() => ProductRepositoryImpl());
+    Get.lazyPut<ProductRepository>(() => ProductRepositoryImpl(fireStoreService: Get.find()));
     Get.lazyPut<GetProductsUseCase>(() => GetProductsUseCaseImpl(productRepository: Get.find()));
     Get.lazyPut<CreateProductUseCase>(() => CreateProductUseCaseImpl(productRepository: Get.find()));
     Get.lazyPut(() => ProductsController(getProducts: Get.find(), createProduct: Get.find()));

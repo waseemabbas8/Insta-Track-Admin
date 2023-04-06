@@ -1,23 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../../../core/data/firebase/db/firestore_service.dart';
 import '../../domain/model/product.dart';
 import '../../domain/repository/product_repository.dart';
+import '../model/product_api_model.dart';
 
 class ProductRepositoryImpl extends ProductRepository {
+  ProductRepositoryImpl({required this.fireStoreService});
+
+  final FireStoreService fireStoreService;
+
+  CollectionReference<ProductApiModel> get _productsRef => fireStoreService.getCollectionRef(
+      'product', (snapshot, _) => ProductApiModel.fromMap(snapshot.data()!));
+
   @override
-  Future<Product> createProduct({required String name, required String model, required int price}) {
-    // TODO: implement createProduct
-    throw UnimplementedError();
+  Future<Product> createProduct({
+    required String name,
+    required String model,
+    required int price,
+  }) async {
+    final obj = ProductApiModel(name: name, model: model, price: price);
+    final productApiModel = await fireStoreService.add<ProductApiModel>(obj, _productsRef);
+    return productApiModel.toDto();
   }
 
   @override
-  Stream<List<Product>> getProducts() async* {
-    // TODO: fetch from firebase
-    Future.delayed(const Duration(microseconds: 600));
-    final List<Product> list = [
-      Product(id: 'id1', name: 'iPhone', model: 'model1', price: 120000),
-      Product(id: 'id2', name: 'Samsung Glaxy', model: 'Note 10', price: 100000),
-      Product(id: 'id3', name: 'Oppo', model: 'F19 Pro', price: 65000),
-      Product(id: 'id4', name: 'Gaming Box', model: '2017', price: 50000),
-    ];
-    yield list;
+  Stream<List<Product>> getProducts() {
+    return fireStoreService.observeList(_productsRef).map(
+          (e) => e
+              .map((e) => Product(id: e.docId!, name: e.name, model: e.model, price: e.price))
+              .toList(),
+        );
   }
 }
