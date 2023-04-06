@@ -35,7 +35,7 @@ class InstallmentTable extends StatelessWidget {
                 label: Text("Product"),
               ),
               DataColumn(
-                label: Text("Price"),
+                label: Text("Price(PKR)"),
               ),
               DataColumn(
                 label: Text("Advance"),

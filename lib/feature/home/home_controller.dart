@@ -21,19 +21,6 @@ class HomeController extends BaseController {
 
   void onMenuItemSelected(int index, SelectionButtonData value) {
     if (value.routeName == Get.currentRoute) return;
-    switch (value.routeName) {
-      case AppRoutes.dashboard:
-        Get.toNamed(AppRoutes.dashboard, id: HomeNavigation.id);
-        break;
-      case AppRoutes.users:
-        Get.toNamed(AppRoutes.users, id: HomeNavigation.id);
-        break;
-      case AppRoutes.loans:
-        Get.toNamed(AppRoutes.loans, id: HomeNavigation.id);
-        break;
-    }
-
-    if (value.routeName == Get.currentRoute) return;
     Get.toNamed(value.routeName, id: HomeNavigation.id);
   }
 }

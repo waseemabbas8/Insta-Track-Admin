@@ -22,7 +22,7 @@ class InstallmentsController extends BaseController {
     await Future.delayed(const Duration(microseconds: 500));
     List<InstallmentApplication> data = [
       InstallmentApplication(
-          name: 'Ali',
+          name: 'Ali Rehan Munir',
           phone: '03084248718',
           createdAt: '23-12-2023',
           status: true,
