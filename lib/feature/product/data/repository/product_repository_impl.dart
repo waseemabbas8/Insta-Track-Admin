@@ -28,7 +28,7 @@ class ProductRepositoryImpl extends ProductRepository {
   Stream<List<Product>> getProducts() {
     return fireStoreService.observeList(_productsRef).map(
           (e) => e
-              .map((e) => Product(id: e.docId!, name: e.name, model: e.model, price: e.price))
+              .map((e) => e.toDto())
               .toList(),
         );
   }

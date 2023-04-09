@@ -14,12 +14,12 @@ class AppUser extends User {
     required super.name,
     required super.email,
     required this.nic,
-    required this.image,
     required this.phone,
     required this.city,
     required this.address,
     required this.createdAt,
     required this.isActive,
+    this.image = 'https://picsum.photos/200',
   });
 
   bool matchesSearchResult(String value) {

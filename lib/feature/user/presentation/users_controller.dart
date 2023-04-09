@@ -1,12 +1,19 @@
 import 'package:get/get.dart';
 
 import '../../../core/base_page.dart';
+import '../../../core/data/response.dart';
+import '../../../core/data/use_case.dart';
 import '../../../core/route/app_routes.dart';
 import '../../../core/route/home_navigation.dart';
-import '../../../core/utils/constants.dart';
 import '../domain/model/app_user.dart';
+import '../domain/usecase/get_users.dart';
 
 class UsersController extends BaseController {
+
+  UsersController({required this.getUsers});
+
+  final GetUsersUseCase getUsers;
+
   final RxList<AppUser> _users = RxList();
 
   List<AppUser> get users => _users;
@@ -19,38 +26,17 @@ class UsersController extends BaseController {
     super.onInit();
   }
 
-  void _fetchAppUsers() async {
+  void _fetchAppUsers() {
     setLoadingState(true);
-    await Future.delayed(const Duration(microseconds: 500));
-    List<AppUser> data = [
-      AppUser(
-        id: 'id',
-        name: 'Waseem',
-        email: 'waseem@gmail.com',
-        nic: '3540321711105',
-        image: 'https://picsum.photos/id/146/200',
-        phone: '03021888898',
-        city: 'Sangla Hill',
-        address: 'Faizabad',
-        createdAt: '23-12-2023',
-        isActive: true
-      ),
-      AppUser(
-        id: 'id2',
-        name: 'Mubashar',
-        email: 'mubashar@gmail.com',
-        nic: '3540321711103',
-        image: 'https://picsum.photos/200',
-        phone: '03021888897',
-        city: 'Sangla Hill',
-        address: 'Faizabad',
-        createdAt: '21-12-2023',
-        isActive: false,
-      ),
-    ];
-    _users.value = data;
-    _initUsersList = data;
-    setLoadingState(false);
+    getUsers(params: NoParams.getInstance()).listen((result) {
+      if(result is SuccessResult) {
+        _users.value = (result as SuccessResult).data;
+        _initUsersList = (result as SuccessResult).data;
+      } else {
+        _users.value = List.empty();
+      }
+      setLoadingState(false);
+    });
   }
 
   void onSearch(String value) {
