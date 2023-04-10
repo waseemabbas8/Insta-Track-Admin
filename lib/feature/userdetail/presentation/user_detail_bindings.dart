@@ -5,7 +5,6 @@ import 'user_detail_controller.dart';
 class UserDetailBindings extends Bindings {
   @override
   void dependencies() {
-
-    Get.lazyPut(() => UserDetailController(user: Get.arguments[0]));
+    Get.lazyPut(() => UserDetailController(userObj: Get.arguments[0], activateUser: Get.find()));
   }
 }

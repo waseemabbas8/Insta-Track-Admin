@@ -6,13 +6,14 @@ import '../../../core/data/use_case.dart';
 import '../../../core/route/app_routes.dart';
 import '../../../core/route/home_navigation.dart';
 import '../domain/model/app_user.dart';
+import '../domain/usecase/activate_user.dart';
 import '../domain/usecase/get_users.dart';
 
 class UsersController extends BaseController {
-
-  UsersController({required this.getUsers});
+  UsersController({required this.getUsers, required this.activateUser});
 
   final GetUsersUseCase getUsers;
+  final ActivateUserUseCase activateUser;
 
   final RxList<AppUser> _users = RxList();
 
@@ -29,7 +30,7 @@ class UsersController extends BaseController {
   void _fetchAppUsers() {
     setLoadingState(true);
     getUsers(params: NoParams.getInstance()).listen((result) {
-      if(result is SuccessResult) {
+      if (result is SuccessResult) {
         _users.value = (result as SuccessResult).data;
         _initUsersList = (result as SuccessResult).data;
       } else {
@@ -40,7 +41,7 @@ class UsersController extends BaseController {
   }
 
   void onSearch(String value) {
-    if(value.isEmpty) {
+    if (value.isEmpty) {
       _users.value = _initUsersList;
       return;
     }
@@ -52,7 +53,14 @@ class UsersController extends BaseController {
     Get.toNamed(AppRoutes.usersDetail, id: HomeNavigation.id, arguments: [user]);
   }
 
-  void onUserActivation(AppUser user) {
-
+  void onUserActivation(AppUser user) async {
+    final result = await activateUser(
+      params: ActivateUserParams(userId: user.id, active: !user.isActive),
+    );
+    if(result is SuccessResult) {
+      showMessage(title: 'Success', message: 'User ${user.name} activated');
+    } else {
+      showMessage(message: (result as Error).toString());
+    }
   }
 }

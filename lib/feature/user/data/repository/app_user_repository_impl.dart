@@ -27,4 +27,18 @@ class AppUserRepositoryImpl extends AppUserRepository {
           (event) => event.map((e) => e.toDto()).toList(),
         );
   }
+
+  @override
+  Future<int> activateUser({required String id, required bool active}) async {
+    final docRef = fireStoreService.getDocumentRef(
+      'user/$id',
+          (snapshot, options) => UserApiModel.fromMap(snapshot.data()!),
+    );
+    final obj = {
+      'active': active
+    };
+    await fireStoreService.updateField(obj, docRef);
+    return 1;
+  }
+
 }
