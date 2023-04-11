@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../core/data/firebase/db/firestore_service.dart';
 import '../../domain/model/app_user.dart';
+import '../../domain/model/contact.dart';
 import '../../domain/repository/app_user_repository.dart';
+import '../model/contacts_response.dart';
 import '../model/user_api_model.dart';
 
 class AppUserRepositoryImpl extends AppUserRepository {
@@ -39,6 +41,16 @@ class AppUserRepositoryImpl extends AppUserRepository {
     };
     await fireStoreService.updateField(obj, docRef);
     return 1;
+  }
+
+  @override
+  Future<List<Contact>> getContacts({required String userId}) async {
+    final docRef = fireStoreService.getDocumentRef(
+      'contacts/$userId',
+          (snapshot, options) => ContactsResponse.fromMap(snapshot.data()!),
+    );
+    final response = await fireStoreService.get(docRef);
+    return response?.contacts.map((e) => e.toDto()).toList() ?? List.empty();
   }
 
 }

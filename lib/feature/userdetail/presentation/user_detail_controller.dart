@@ -9,16 +9,19 @@ import '../../location/domain/usecase/get_user_location.dart';
 import '../../user/domain/model/app_user.dart';
 import '../../user/domain/model/contact.dart';
 import '../../user/domain/usecase/activate_user.dart';
+import '../../user/domain/usecase/get_contacts.dart';
 
 class UserDetailController extends BaseController {
   UserDetailController({
     required this.userObj,
     required this.activateUser,
     required this.getUserLocation,
+    required this.getContacts,
   });
 
   final ActivateUserUseCase activateUser;
   final GetUserLocationUseCase getUserLocation;
+  final GetContactsUseCase getContacts;
 
   final AppUser userObj;
 
@@ -59,14 +62,11 @@ class UserDetailController extends BaseController {
     }
   }
 
-  void _fetchContacts() {
-    final List<Contact> list = [
-      Contact(name: 'Nabeel Abid', phone: '03021234567'),
-      Contact(name: 'Ali Rehan', phone: '03025678432'),
-      Contact(name: 'Anas Hashmi', phone: '0338322345'),
-      Contact(name: 'Abdullah Tahir', phone: '0312567896'),
-    ];
-    _contacts.value = list;
+  void _fetchContacts() async {
+    final result = await getContacts(params: GetContactsParams(userObj.id));
+    if(result is SuccessResult) {
+      _contacts.value = (result as SuccessResult).data;
+    }
   }
 
   void onUserActivation() async {

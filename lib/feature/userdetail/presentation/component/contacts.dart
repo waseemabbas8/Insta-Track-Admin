@@ -26,7 +26,11 @@ class Contacts extends StatelessWidget {
           ),
           Spacing.v20,
           Expanded(
-            child: _ContactsTable(contacts: controller.contacts),
+            child: Obx(
+              () => controller.contacts.isEmpty
+                  ? Text('No contact found', style: Get.textTheme.titleMedium)
+                  : _ContactsTable(contacts: controller.contacts),
+            ),
           ),
         ],
       ),
@@ -36,6 +40,7 @@ class Contacts extends StatelessWidget {
 
 class _ContactsTable extends StatelessWidget {
   final List<Contact> contacts;
+
   const _ContactsTable({Key? key, required this.contacts}) : super(key: key);
 
   @override
@@ -54,4 +59,3 @@ class _ContactsTable extends StatelessWidget {
     );
   }
 }
-
