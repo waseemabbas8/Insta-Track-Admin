@@ -92,11 +92,14 @@ class UserDetailPage extends BasePage<UserDetailController> {
             Row(
               children: [LabelText(controller.user.createdAt, textStyle: Get.textTheme.titleSmall)],
             ),
+            Spacing.v20,
+            CustomFilledButton(
+              text: 'See Current Location',
+              onPressed: controller.onCurrentLocation,
+            )
           ],
         ),
       );
-
-  Widget get _location => Container();
 
   Widget _buildContactWidget(IconData iconData, String title) => Row(
         children: [

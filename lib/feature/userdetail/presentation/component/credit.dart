@@ -44,7 +44,7 @@ class CreditDetail extends StatelessWidget {
               Expanded(child: _buildInstallmentCount(2, 'Paid')),
               Expanded(child: _buildInstallmentCount(10, 'Pending')),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -1,18 +1,28 @@
 import 'package:get/get.dart';
+import 'dart:html' as html;
 
 import '../../../core/base_page.dart';
 import '../../../core/data/response.dart';
 import '../../../core/route/home_navigation.dart';
+import '../../location/domain/mdoel/geo_location.dart';
+import '../../location/domain/usecase/get_user_location.dart';
 import '../../user/domain/model/app_user.dart';
 import '../../user/domain/model/contact.dart';
 import '../../user/domain/usecase/activate_user.dart';
 
 class UserDetailController extends BaseController {
-  UserDetailController({required this.userObj, required this.activateUser});
+  UserDetailController({
+    required this.userObj,
+    required this.activateUser,
+    required this.getUserLocation,
+  });
 
   final ActivateUserUseCase activateUser;
+  final GetUserLocationUseCase getUserLocation;
 
   final AppUser userObj;
+
+  GeoLocation? _userLocation;
 
   late Rx<AppUser> _user;
 
@@ -23,11 +33,13 @@ class UserDetailController extends BaseController {
   List<Contact> get contacts => _contacts;
 
   final RxBool _activatingUser = RxBool(false);
+
   bool get activatingUser => _activatingUser.value;
 
   @override
   void onInit() {
     _user = Rx(userObj);
+    _getLocation();
 
     _fetchContacts();
     super.onInit();
@@ -36,6 +48,15 @@ class UserDetailController extends BaseController {
   @override
   void onBack() {
     Get.back(id: HomeNavigation.id);
+  }
+
+  void _getLocation() async {
+    final result = await getUserLocation(
+      params: GetUserLocationParams(userObj.id),
+    );
+    if (result is SuccessResult) {
+      _userLocation = (result as SuccessResult).data;
+    }
   }
 
   void _fetchContacts() {
@@ -70,5 +91,16 @@ class UserDetailController extends BaseController {
       showMessage(message: (result as Error).toString());
     }
     _activatingUser.value = false;
+  }
+
+  void onCurrentLocation() {
+    if (_userLocation == null) {
+      showMessage(message: 'No location found');
+      return;
+    }
+    html.window.open(
+      'https://www.google.com/maps/search/?api=1&query=${_userLocation!.latitude},${_userLocation!.longitude}',
+      "_blank",
+    );
   }
 }
