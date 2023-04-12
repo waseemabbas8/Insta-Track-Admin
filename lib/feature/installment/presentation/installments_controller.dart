@@ -62,4 +62,8 @@ class InstallmentsController extends BaseController {
         userApplications.where((user) => user.matchesSearchResult(value));
     _userApplications.value = tempUsers.toList();
   }
+
+  onViewInstallmentDetail() {
+    Get.toNamed(AppRoutes.installmentDetail, id: HomeNavigation.id);
+  }
 }

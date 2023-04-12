@@ -9,6 +9,7 @@ class AppRoutes {
   static const usersDetail = "/userDetail";
   static const loans = "/loans";
   static const installments = "/installments";
+  static const installmentDetail = "/installmentsDetail";
   static const products = "/products";
   static const settings = "/settings";
 }
