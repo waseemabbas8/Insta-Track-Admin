@@ -51,10 +51,10 @@ class _InstallmentHistoryTable extends StatelessWidget {
           label: Text("Amount(PKR)"),
         ),
         DataColumn(
-          label: Text("Payment Method"),
+          label: Text("Paid Date"),
         ),
         DataColumn(
-          label: Text("Paid Date"),
+          label: Text("Status"),
         ),
       ],
     );

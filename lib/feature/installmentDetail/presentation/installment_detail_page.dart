@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intatrack/feature/installmentDetail/presentation/component/installment_history.dart';
 import '../../../core/base_page.dart';
 import '../../../core/values/colors.dart';
 import '../../../core/values/dimens.dart';
-import '../../../core/widget/button_widget.dart';
 import '../../../core/widget/header.dart';
-import '../../../core/widget/label.dart';
-import '../../../core/widget/search_field.dart';
-import '../../userdetail/presentation/component/contacts.dart';
 import '../../userdetail/presentation/component/credit.dart';
+import 'component/installment_history.dart';
 import 'installment_detail_controller.dart';
 
 class InstallmentDetailPage extends BasePage<InstallmentDetailController> {

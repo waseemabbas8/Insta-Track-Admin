@@ -10,8 +10,8 @@ class InstallmentHistoryTableSource extends DataTableSource {
     final record = installments[index];
     return DataRow(cells: [
       DataCell(Text('${record.price}')),
-      const DataCell(Text('Cash')),
       DataCell(Text(record.createdAt)),
+      const DataCell(Text('Paid')),
     ]);
   }
 
