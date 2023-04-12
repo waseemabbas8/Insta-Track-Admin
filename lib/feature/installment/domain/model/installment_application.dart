@@ -26,3 +26,25 @@ class InstallmentApplication {
         createdAt.toLowerCase().contains(searchWord);
   }
 }
+
+class UserInfo {
+  final String fullName;
+  final String phone;
+
+  UserInfo(this.fullName, this.phone);
+}
+
+class ProductInfo {
+  final String model;
+  final String name;
+  final int price;
+
+  ProductInfo(this.model, this.name, this.price);
+}
+
+class InstallmentCount {
+  final int paid;
+  final int total;
+
+  InstallmentCount(this.paid, this.total);
+}
