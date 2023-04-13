@@ -4,16 +4,19 @@ import '../../../../core/data/use_case.dart';
 import '../model/installment_application.dart';
 import '../repository/installment_repository.dart';
 
-abstract class GetInstallmentApplicationsUseCase implements ObservableUseCase<List<InstallmentApplication>, NoParams> {}
+abstract class GetInstallmentApplicationsUseCase extends ObservableUseCase<Result<List<InstallmentApplication>>, NoParams> {}
 
-class GetInstallmentApplicationsUseCaseImpl implements GetInstallmentApplicationsUseCase {
+class GetInstallmentApplicationsUseCaseImpl extends GetInstallmentApplicationsUseCase {
   final InstallmentRepository repo;
 
-  GetInstallmentApplicationsUseCaseImpl({required this.repo});
+  GetInstallmentApplicationsUseCaseImpl(this.repo);
 
   @override
-  Stream<List<InstallmentApplication>> call({required NoParams params}) {
-    // TODO: implement call
-    throw UnimplementedError();
+  Stream<Result<List<InstallmentApplication>>> call({required NoParams params}) {
+    return repo.getApplications().map(
+          (application) => application.isEmpty
+          ? Result.error(FirebaseException.noDataException(msg: 'No Applications found'),)
+          : Result.success(application),
+    );
   }
 }

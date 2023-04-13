@@ -1,50 +1,47 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class InstallmentApplication {
-  final String name;
-  final String phone;
-  final String product;
-  final int price;
-  final String advance;
-  final String createdAt;
-  final bool? status;
-  final int installmentsCount;
+  final String id;
+  final Product productInfo;
+  final int advance;
+  final int status;
+  final Installment installmentCount;
+  final User userInfo;
+  final String productId;
+  final String userId;
+  final Timestamp createdAt;
 
   InstallmentApplication({
-    required this.name,
-    required this.phone,
-    required this.product,
-    required this.price,
+    required this.productInfo,
     required this.advance,
-    required this.installmentsCount,
+    required this.status,
+    required this.installmentCount,
+    required this.userInfo,
+    required this.productId,
+    required this.userId,
     required this.createdAt,
-    this.status,
+    required this.id,
   });
-
-  bool matchesSearchResult(String value) {
-    final searchWord = value.toLowerCase();
-    return name.toLowerCase().contains(searchWord) ||
-        phone.toLowerCase().contains(searchWord) ||
-        createdAt.toLowerCase().contains(searchWord);
-  }
 }
 
-class UserInfo {
+class User {
   final String fullName;
   final String phone;
 
-  UserInfo(this.fullName, this.phone);
+  User(this.fullName, this.phone);
 }
 
-class ProductInfo {
+class Product {
   final String model;
   final String name;
   final int price;
 
-  ProductInfo(this.model, this.name, this.price);
+  Product(this.model, this.name, this.price);
 }
 
-class InstallmentCount {
+class Installment {
   final int paid;
   final int total;
 
-  InstallmentCount(this.paid, this.total);
+  Installment(this.paid, this.total);
 }
