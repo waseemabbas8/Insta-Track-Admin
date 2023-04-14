@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import '../../../installment/domain/model/installment_application.dart';
 
 class InstallmentHistoryTableSource extends DataTableSource {
-  final List<InstallmentApplication> installments;
+  final InstallmentApplication installment;
 
-  InstallmentHistoryTableSource({required this.installments});
+  InstallmentHistoryTableSource({required this.installment});
+
   @override
   DataRow? getRow(int index) {
-    final record = installments[index];
     return DataRow(cells: [
-      DataCell(Text('${record.productInfo.price}')),
-      DataCell(Text('20-12-2022')),
+      DataCell(Text(
+          '${(installment.productInfo.price - installment.advance) / (installment.installmentCount.total)}')),
+      const DataCell(Text('20-12-2022')),
       const DataCell(Text('Paid')),
     ]);
   }
@@ -19,9 +20,8 @@ class InstallmentHistoryTableSource extends DataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => installments.length;
+  int get rowCount => installment.installmentCount.total;
 
   @override
   int get selectedRowCount => 0;
-
 }

@@ -23,11 +23,11 @@ class InstallmentTableSource extends DataTableSource {
       DataCell(Text('${installmentApplication.productInfo.price}')),
       DataCell(Text(installmentApplication.advance.toString())),
       DataCell(Text('${installmentApplication.installmentCount.total}')),
-      DataCell(Text(DateFormat('yyyy-MM-dd').format(installmentApplication.createdAt.toDate()))),
+      DataCell(Text(DateFormat('yyyy-MM-dd')
+          .format(installmentApplication.createdAt.toDate()))),
       DataCell(GestureDetector(
-          onTap: () {
-            installmentsController.onViewInstallmentDetail();
-          },
+          onTap: () => installmentsController
+              .onViewInstallmentDetail(installmentApplication),
           child: _actionButtons(installmentApplication))),
     ]);
   }
