@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../installment/domain/model/installment_application.dart';
+import '../installment_detail_controller.dart';
 
 class InstallmentHistoryTableSource extends DataTableSource {
   final InstallmentApplication installment;
 
   InstallmentHistoryTableSource({required this.installment});
+
+  final InstallmentDetailController controller = Get.find();
 
   @override
   DataRow? getRow(int index) {

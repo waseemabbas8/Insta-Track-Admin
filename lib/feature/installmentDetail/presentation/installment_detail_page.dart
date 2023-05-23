@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intatrack/core/utils/strings_ext.dart';
 import '../../../core/base_page.dart';
 import '../../../core/values/colors.dart';
 import '../../../core/values/dimens.dart';
+import '../../../core/widget/button_widget.dart';
 import '../../../core/widget/header.dart';
 import '../../userdetail/presentation/component/credit.dart';
 import '../domain/model/credit_info.dart';
@@ -34,19 +36,25 @@ class InstallmentDetailPage extends BasePage<InstallmentDetailController> {
                           children: [_profileSection, _productSection],
                         )),
                     const VerticalDivider(),
-                    Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            CreditDetail(
-                                creditInfo: CreditInfo(
-                              controller.application.productInfo.price,
-                              controller.application.installmentCount.total,
-                              controller.application.installmentCount.paid,
-                            )),
-                            const Expanded(child: InstallmentHistory())
-                          ],
-                        )),
+                    Obx(
+                      () => Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              controller.application.status != 1
+                                  ? _instalmentCountSection
+                                  : CreditDetail(
+                                      creditInfo: CreditInfo(
+                                      controller.application.productInfo.price,
+                                      controller
+                                          .application.installmentCount.total,
+                                      controller
+                                          .application.installmentCount.paid,
+                                    )),
+                              const Expanded(child: InstallmentHistory())
+                            ],
+                          )),
+                    ),
                     // const VerticalDivider(),
                   ],
                 ),
@@ -57,6 +65,46 @@ class InstallmentDetailPage extends BasePage<InstallmentDetailController> {
       ),
     );
   }
+
+  Widget get _instalmentCountSection => Form(
+        key: controller.formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Spacing.v20,
+            Text(
+              'Total Instalment Count',
+              style: Get.textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w500),
+            ),
+            Spacing.v20,
+            TextFormField(
+              keyboardType: TextInputType.number,
+              autofocus: false,
+              controller: controller.totalICountController,
+              validator: (input) =>
+                  input.isNotNullOrEmpty() ? null : 'Field cannot be empty',
+              style: Get.textTheme.bodyMedium,
+              decoration: const InputDecoration(
+                labelText: 'Instalment Count',
+                prefixIcon: Icon(
+                  Icons.numbers,
+                  size: 18,
+                ),
+              ),
+            ),
+            Spacing.v20,
+            SizedBox(
+              width: Get.width,
+              child: LoadingViewButton(
+                text: 'Submit',
+                onPressed: controller.onSubmitICount,
+                isLoading: controller.loadingData,
+              ),
+            ),
+          ],
+        ),
+      );
 
   Widget get _productSection => SizedBox(
         width: Get.width,

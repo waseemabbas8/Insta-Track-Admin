@@ -19,15 +19,19 @@ class InstallmentHistory extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Spacing.v20,
-          Text(
-            'Installment History',
-            style:
-                Get.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Installment History',
+              style: Get.textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w500),
+            ),
           ),
           Spacing.v12,
           Expanded(
-            child:
-                _InstallmentHistoryTable(installment: controller.application),
+            child: controller.application.status != 1
+                ? Text('No Data found!', style: Get.textTheme.titleMedium)
+                : _InstallmentHistoryTable(installment: controller.application),
           ),
         ],
       ),
