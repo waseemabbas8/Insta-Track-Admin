@@ -47,6 +47,11 @@ class FireStoreServiceImpl implements FireStoreService {
   }
 
   @override
+  Stream<List<T>> getListStreamByQuery<T extends FireStoreDoc>(Query<T> query) {
+    return query.snapshots().asyncMap((event) => event.docs.map((e) => e.toPojo()).toList());
+  }
+
+  @override
   CollectionReference<T> getCollectionRef<T extends FireStoreDoc>(
     String path,
     FromFirestore<T> fromFirestore,
