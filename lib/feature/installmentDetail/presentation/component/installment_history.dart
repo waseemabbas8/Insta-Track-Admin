@@ -19,15 +19,19 @@ class InstallmentHistory extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Spacing.v20,
-          Text(
-            'Installment History',
-            style:
-                Get.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Installment History',
+              style: Get.textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w500),
+            ),
           ),
           Spacing.v12,
           Expanded(
-            child:
-                _InstallmentHistoryTable(installments: controller.installments),
+            child: controller.application.status != 1
+                ? Text('No Data found!', style: Get.textTheme.titleMedium)
+                : _InstallmentHistoryTable(installment: controller.application),
           ),
         ],
       ),
@@ -36,16 +40,16 @@ class InstallmentHistory extends StatelessWidget {
 }
 
 class _InstallmentHistoryTable extends StatelessWidget {
-  final List<InstallmentApplication> installments;
+  final InstallmentApplication installment;
 
-  const _InstallmentHistoryTable({Key? key, required this.installments})
+  const _InstallmentHistoryTable({Key? key, required this.installment})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PaginatedDataTable2(
       columnSpacing: 10,
-      source: InstallmentHistoryTableSource(installments: installments),
+      source: InstallmentHistoryTableSource(installment: installment),
       columns: const [
         DataColumn(
           label: Text("Amount(PKR)"),

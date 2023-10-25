@@ -48,7 +48,8 @@ class InstallmentsController extends BaseController {
     // _userApplications.value = tempUsers.toList();
   }
 
-  onViewInstallmentDetail() {
-    Get.toNamed(AppRoutes.installmentDetail, id: HomeNavigation.id);
+  onViewInstallmentDetail(InstallmentApplication application) {
+    Get.toNamed(AppRoutes.installmentDetail,
+        id: HomeNavigation.id, arguments: [application]);
   }
 }

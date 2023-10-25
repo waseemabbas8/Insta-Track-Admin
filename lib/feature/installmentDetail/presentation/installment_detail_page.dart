@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intatrack/core/utils/strings_ext.dart';
 import '../../../core/base_page.dart';
 import '../../../core/values/colors.dart';
 import '../../../core/values/dimens.dart';
+import '../../../core/widget/button_widget.dart';
 import '../../../core/widget/header.dart';
 import '../../userdetail/presentation/component/credit.dart';
+import '../domain/model/credit_info.dart';
 import 'component/installment_history.dart';
 import 'installment_detail_controller.dart';
 
@@ -33,12 +36,25 @@ class InstallmentDetailPage extends BasePage<InstallmentDetailController> {
                           children: [_profileSection, _productSection],
                         )),
                     const VerticalDivider(),
-                    const Expanded(flex: 2, child: Column(
-                      children: [
-                        CreditDetail(),
-                        Expanded(child: InstallmentHistory())
-                      ],
-                    )),
+                    Obx(
+                      () => Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              controller.application.status != 1
+                                  ? _instalmentCountSection
+                                  : CreditDetail(
+                                      creditInfo: CreditInfo(
+                                      controller.application.productInfo.price,
+                                      controller
+                                          .application.installmentCount.total,
+                                      controller
+                                          .application.installmentCount.paid,
+                                    )),
+                              const Expanded(child: InstallmentHistory())
+                            ],
+                          )),
+                    ),
                     // const VerticalDivider(),
                   ],
                 ),
@@ -49,6 +65,46 @@ class InstallmentDetailPage extends BasePage<InstallmentDetailController> {
       ),
     );
   }
+
+  Widget get _instalmentCountSection => Form(
+        key: controller.formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Spacing.v20,
+            Text(
+              'Total Instalment Count',
+              style: Get.textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w500),
+            ),
+            Spacing.v20,
+            TextFormField(
+              keyboardType: TextInputType.number,
+              autofocus: false,
+              controller: controller.totalICountController,
+              validator: (input) =>
+                  input.isNotNullOrEmpty() ? null : 'Field cannot be empty',
+              style: Get.textTheme.bodyMedium,
+              decoration: const InputDecoration(
+                labelText: 'Instalment Count',
+                prefixIcon: Icon(
+                  Icons.numbers,
+                  size: 18,
+                ),
+              ),
+            ),
+            Spacing.v20,
+            SizedBox(
+              width: Get.width,
+              child: LoadingViewButton(
+                text: 'Submit',
+                onPressed: controller.onSubmitICount,
+                isLoading: controller.loadingData,
+              ),
+            ),
+          ],
+        ),
+      );
 
   Widget get _productSection => SizedBox(
         width: Get.width,
@@ -63,13 +119,14 @@ class InstallmentDetailPage extends BasePage<InstallmentDetailController> {
               textAlign: TextAlign.start,
             ),
             Spacing.v12,
-            _buildProductDetailWidget('Brand', 'Apple'),
+            _buildProductDetailWidget(
+                'Brand', controller.application.productInfo.name),
             Spacing.v5,
-            _buildProductDetailWidget('Model', 'iPhone 11 Pro Max'),
+            _buildProductDetailWidget(
+                'Model', controller.application.productInfo.model),
             Spacing.v5,
-            _buildProductDetailWidget('Price', '150,000'),
-            Spacing.v5,
-            _buildProductDetailWidget('Brand', 'Apple'),
+            _buildProductDetailWidget(
+                'Price', controller.application.productInfo.price.toString()),
             Spacing.v20,
           ],
         ),
@@ -89,48 +146,52 @@ class InstallmentDetailPage extends BasePage<InstallmentDetailController> {
         ),
       );
 
-  Widget get _profileSection => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Spacing.v12,
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(width: 2.0, color: Colors.blueGrey),
+  Widget get _profileSection => Obx(
+        () => Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Spacing.v12,
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 2.0, color: Colors.blueGrey),
+              ),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(controller.user.image),
+                radius: 30,
+              ),
             ),
-            child: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://fastly.picsum.photos/id/91/200/300.jpg?hmac=MJmqvWth15jZIlWiHwt01J_qoMRgygGRm0nf1adZtdE'),
-              radius: 30,
+            Spacing.v12,
+            Text(controller.user.name, style: Get.textTheme.titleLarge),
+            Spacing.v5,
+            Text(
+              controller.user.email,
+              style: Get.textTheme.titleSmall
+                  ?.copyWith(color: AppColors.fontColorPallets[2]),
             ),
-          ),
-          Spacing.v12,
-          Text('Ali', style: Get.textTheme.titleLarge),
-          Spacing.v5,
-          Text(
-            'ali@devcrew.io',
-            style: Get.textTheme.titleSmall
-                ?.copyWith(color: AppColors.fontColorPallets[2]),
-          ),
-          Spacing.v10,
-          const Divider(thickness: 1),
-          Spacing.v10,
-          SizedBox(
-            width: Get.width,
-            child: Text(
-              'Contact Info',
-              style: Get.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.w500),
+            Spacing.v10,
+            const Divider(thickness: 1),
+            Spacing.v10,
+            SizedBox(
+              width: Get.width,
+              child: Text(
+                'Contact Info',
+                style: Get.textTheme.titleLarge
+                    ?.copyWith(fontWeight: FontWeight.w500),
+              ),
             ),
-          ),
-          Spacing.v12,
-          _buildContactWidget(Icons.phone_android_sharp, '03084248718'),
-          Spacing.v5,
-          _buildContactWidget(Icons.location_city_sharp, 'Lahore'),
-          Spacing.v5,
-          _buildContactWidget(Icons.location_on_rounded, 'Daroghewala'),
-          Spacing.v20,
-        ],
+            Spacing.v12,
+            _buildContactWidget(
+                Icons.phone_android_sharp, controller.user.phone),
+            Spacing.v5,
+            _buildContactWidget(
+                Icons.location_city_sharp, controller.user.city),
+            Spacing.v5,
+            _buildContactWidget(
+                Icons.location_on_rounded, controller.user.address),
+            Spacing.v20,
+          ],
+        ),
       );
 
   Widget _buildContactWidget(IconData iconData, String title) => Row(

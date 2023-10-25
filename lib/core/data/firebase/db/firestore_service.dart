@@ -16,6 +16,8 @@ abstract class FireStoreService {
 
   Stream<List<T>> observeList<T extends FireStoreDoc>(CollectionReference<T> colRef);
 
+  Stream<List<T>> getListStreamByQuery<T extends FireStoreDoc>(Query<T> query);
+
   CollectionReference<T> getCollectionRef<T extends FireStoreDoc>(
     String path,
     FromFirestore<T> fromFirestore,

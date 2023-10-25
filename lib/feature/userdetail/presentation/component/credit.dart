@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intatrack/core/values/colors.dart';
-
 import '../../../../core/values/dimens.dart';
+import '../../../installmentDetail/domain/model/credit_info.dart';
 
 class CreditDetail extends StatelessWidget {
-  const CreditDetail({Key? key}) : super(key: key);
+  const CreditDetail({Key? key, this.creditInfo}) : super(key: key);
+
+  final CreditInfo? creditInfo;
 
   @override
   Widget build(BuildContext context) {
+    int pending = 0;
+    if (creditInfo != null) {
+      pending = (creditInfo!.total) - (creditInfo!.paid);
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -17,7 +23,8 @@ class CreditDetail extends StatelessWidget {
           Spacing.v20,
           Text(
             'Credit Details',
-            style: Get.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+            style:
+                Get.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
           Spacing.v20,
           Container(
@@ -29,7 +36,7 @@ class CreditDetail extends StatelessWidget {
             padding: Margin.all8,
             child: Center(
               child: Text(
-                '10,000 PKR',
+                creditInfo?.price.toString() ?? '0 PKR',
                 style: Get.textTheme.titleSmall?.copyWith(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,
@@ -40,9 +47,12 @@ class CreditDetail extends StatelessWidget {
           Spacing.v20,
           Row(
             children: [
-              Expanded(child: _buildInstallmentCount(14, 'Installments')),
-              Expanded(child: _buildInstallmentCount(2, 'Paid')),
-              Expanded(child: _buildInstallmentCount(10, 'Pending')),
+              Expanded(
+                  child: _buildInstallmentCount(
+                      creditInfo?.total ?? 0, 'Installments')),
+              Expanded(
+                  child: _buildInstallmentCount(creditInfo?.paid ?? 0, 'Paid')),
+              Expanded(child: _buildInstallmentCount(pending, 'Pending')),
             ],
           ),
         ],
@@ -51,16 +61,18 @@ class CreditDetail extends StatelessWidget {
   }
 
   Widget _buildInstallmentCount(int count, String title) => Column(
-    mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: Get.textTheme.bodySmall?.copyWith(color: AppColors.fontColorPallets[2]),
+            style: Get.textTheme.bodySmall
+                ?.copyWith(color: AppColors.fontColorPallets[2]),
           ),
           Text(
             count.toString(),
-            style: Get.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+            style: Get.textTheme.titleMedium
+                ?.copyWith(fontWeight: FontWeight.w600),
           ),
         ],
       );
